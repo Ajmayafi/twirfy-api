@@ -30,7 +30,7 @@ const app = express();
 app.use(cors())
 app.use(express.json()); // latest version of exressJS now comes with Body-Parser!
 
-app.get('/', (req, res)=> { res.send(db.users) })
+app.get('/', (req, res)=> { res.send('its working!') })
 app.post('/signin', signin.handleSignin(db, bcrypt))
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) })
 app.post('/sendmoney', (req, res) => { transactions.sendMoney(req, res, db, uniqid)})
@@ -44,6 +44,6 @@ app.post('/withdraw', (req, res) => { transactions.withdraw(req,res,db)})
 app.post('/viewtransaction', (req, res) => { transactions.viewTransaction(req,res,db)})
 app.post('/overview', (req, res) => { dashboard.fetchTransactionsOverview(req, res, db)})
 
-app.listen(3000, ()=> {
+app.listen(process.env.PORT || 3000, ()=> {
   console.log('app is running on port 3000');
 })
